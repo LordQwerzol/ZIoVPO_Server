@@ -1,9 +1,13 @@
 package ZIoVPO.ZIoVPO_Server.controller;
 
+import ZIoVPO.ZIoVPO_Server.entity.ApplicationUser;
+import ZIoVPO.ZIoVPO_Server.model.ApplicationUserDto;
 import ZIoVPO.ZIoVPO_Server.model.AuthenticationRequest;
 import ZIoVPO.ZIoVPO_Server.model.AuthenticationResponse;
 import ZIoVPO.ZIoVPO_Server.repository.ApplicationUserRepository;
+import ZIoVPO.ZIoVPO_Server.service.RegistrationService;
 import ZIoVPO.ZIoVPO_Server.service.TokenService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,7 @@ import java.util.Map;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
+    private final RegistrationService registrationService;
     private final TokenService tokenService;
 
     @PostMapping("/login")
@@ -33,7 +38,7 @@ public class AuthenticationController {
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
 
-            AuthenticationResponse response = tokenService.generateTokenPair(authentication, request.getDeviceId());
+            AuthenticationResponse response = tokenService.generateTokenPair(authentication, request.getMacAddress());
 
             return ResponseEntity.ok(response);
 
@@ -56,6 +61,20 @@ public class AuthenticationController {
         } catch (SecurityException ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("error", "Invalid refresh token"));
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody ApplicationUserDto request) {
+        try {
+            ApplicationUser user = registrationService.registerUser(request);
+
+            return ResponseEntity.ok(Map.of(
+                    "message", "User registered successfully",
+                    "email", user.getEmail()
+            ));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 }
