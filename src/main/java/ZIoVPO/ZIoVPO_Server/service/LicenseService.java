@@ -153,12 +153,12 @@ public class LicenseService {
         if (license.isBlocked()) {
             return false;
         }
-        LocalDate firstActivation = license.getFirst_activation_date();
-        if (firstActivation == null) {
+        LocalDate endingDateActivation = license.getEnding_date();
+        if (endingDateActivation == null) {
             return false;
         }
         LocalDate now = LocalDate.now();
-        long daysUntil = ChronoUnit.DAYS.between(now, firstActivation);
+        long daysUntil = ChronoUnit.DAYS.between(now, endingDateActivation);
         return daysUntil >= 0 && daysUntil <= 7;
     }
 
