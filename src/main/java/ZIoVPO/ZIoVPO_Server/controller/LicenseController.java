@@ -2,6 +2,7 @@ package ZIoVPO.ZIoVPO_Server.controller;
 
 import ZIoVPO.ZIoVPO_Server.model.*;
 import ZIoVPO.ZIoVPO_Server.service.LicenseService;
+import ZIoVPO.ZIoVPO_Server.signature.SigningService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class LicenseController {
 
     private final LicenseService service;
+    private final SigningService signingService;
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
@@ -41,7 +43,8 @@ public class LicenseController {
                                              @AuthenticationPrincipal UserDetails currentUser) {
         try {
             Ticket ticket = service.activateLicense(request, currentUser);
-            return ResponseEntity.status(HttpStatus.OK).body(ticket);
+            String signature = signingService.sign(ticket);
+            return ResponseEntity.status(HttpStatus.OK).body(TicketResponse.builder().ticket(ticket).signature(signature).build());
         } catch (LicenseServiceException e) {
             HttpStatus status = HttpStatus.resolve(e.getCode());
             if (status == null) {
@@ -59,7 +62,8 @@ public class LicenseController {
                                           @AuthenticationPrincipal UserDetails currentUser) {
         try {
             Ticket ticket = service.renewLicense(request, currentUser);
-            return ResponseEntity.status(HttpStatus.OK).body(ticket);
+            String signature = signingService.sign(ticket);
+            return ResponseEntity.status(HttpStatus.OK).body(TicketResponse.builder().ticket(ticket).signature(signature).build());
         } catch (LicenseServiceException e) {
             HttpStatus status = HttpStatus.resolve(e.getCode());
             if (status == null) {
@@ -77,7 +81,8 @@ public class LicenseController {
                                           @AuthenticationPrincipal UserDetails currentUser) {
         try {
             Ticket ticket = service.checkLicense(request, currentUser);
-            return ResponseEntity.status(HttpStatus.OK).body(ticket);
+            String signature = signingService.sign(ticket);
+            return ResponseEntity.status(HttpStatus.OK).body(TicketResponse.builder().ticket(ticket).signature(signature).build());
         } catch (LicenseServiceException e) {
             HttpStatus status = HttpStatus.resolve(e.getCode());
             if (status == null) {

@@ -34,3 +34,6 @@ build/
 
 ### Keystore файл для SSL/ключей###
 *.jks
+
+data.sql
+/src/main/java/ZIoVPO/ZIoVPO_Server/controller/Tests.java
