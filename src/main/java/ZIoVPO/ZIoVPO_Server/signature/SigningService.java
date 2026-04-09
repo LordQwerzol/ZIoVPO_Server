@@ -22,6 +22,14 @@ public class SigningService {
         return sign(signingKey, canonicalBytes);
     }
 
+    public byte[] sign(byte[] data) throws Exception {
+        PrivateKey signingKey = keyProvider.getSigningKey();
+        Signature signature = Signature.getInstance(algorithm);
+        signature.initSign(signingKey);
+        signature.update(data);
+        return signature.sign();
+    }
+
     private String sign(PrivateKey key, byte[] bytes) throws Exception  {
         Signature signature = Signature.getInstance(algorithm);
         signature.initSign(key);
