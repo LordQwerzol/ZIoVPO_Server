@@ -12,9 +12,11 @@ import ZIoVPO.ZIoVPO_Server.repository.LicenseRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.SecureRandom;
 import java.time.LocalDate;
@@ -52,17 +54,17 @@ public class LicenseService {
         // 1. Блок проверок
         Product product = productService.getProduct(request.getProduct());
         if (product == null) {
-            throw new LicenseServiceException("Product not found: " + request.getProduct(), 404);
+            throw new ResponseStatusException(HttpStatus.valueOf(404), "Product not found: " + request.getProduct());
         }
         if (product.isBlocked()) {
-            throw new LicenseServiceException("Product is blocked: " + product.getName(), 403);
+            throw new ResponseStatusException(HttpStatus.valueOf(403), "Product is blocked: " + product.getName());
         }
         LicenseType type = licenseTypeService.getLicenseType(request.getLicenseType());
         if (type == null) {
-            throw new LicenseServiceException("License type not found: " + request.getLicenseType(), 404);
+            throw new ResponseStatusException(HttpStatus.valueOf(404), "License type not found: " + request.getLicenseType());
         }
         ApplicationUser owner = applicationUserRepository.findByEmail(request.getOwnerEmail())
-                .orElseThrow(() -> new LicenseServiceException("Owner not found: " + request.getOwnerEmail(), 404));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.valueOf(404), "Owner not found: " + request.getOwnerEmail()));
         ApplicationUser actor = applicationUserRepository.findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Actor not found: " + currentUser.getUsername()));
         // 2. Создание
@@ -79,10 +81,10 @@ public class LicenseService {
                 .orElseThrow(() -> new UsernameNotFoundException("Actor not found: " + currentUser.getUsername()));
         License license = licenseRepository.findByCode(request.getActivateCod());
         if (license == null) {
-            throw new LicenseServiceException("License not found", 404);
+            throw new ResponseStatusException(HttpStatus.valueOf(404), "License not found");
         }
         if (!actor.equals(license.getOwner())){
-            throw new LicenseServiceException("License owned by another user", 403);
+            throw new ResponseStatusException(HttpStatus.valueOf(403), "License owned by another user");
         }
         Device device = deviceService.getDevice(request.getMacAddress());
         if (device == null) {
@@ -102,7 +104,7 @@ public class LicenseService {
         }
         // Проверка кол-ва устройств
         if (! (isFirst || checkDeviceLimit(license))) {
-            throw new LicenseServiceException("Device limit reached", 409);
+            throw new ResponseStatusException(HttpStatus.valueOf(409), "Device limit reached");
         }
         // 3. Транзакция
         DeviceLicense deviceLicense = DeviceLicense.builder().device(device).license(license).activationDate(now).build();
@@ -118,14 +120,14 @@ public class LicenseService {
                 .orElseThrow(() -> new UsernameNotFoundException("Actor not found: " + currentUser.getUsername()));
         License license = licenseRepository.findByCode(request.getActivateCod());
         if (license == null) {
-            throw new LicenseServiceException("License not found", 404);
+            throw new ResponseStatusException(HttpStatus.valueOf(404), "License not found");
         }
         if (!actor.equals(license.getOwner())){
-            throw new LicenseServiceException("License owned by another user", 403);
+            throw new ResponseStatusException(HttpStatus.valueOf(403), "License owned by another user");
         }
         // 2. Условие для продления
         if (checkRenewability(license)) {
-            throw new LicenseServiceException("Renewal not allowed", 409);
+            throw new ResponseStatusException(HttpStatus.valueOf(409), "Renewal not allowed");
         }
         // 3. Продление
         license.setEnding_date(LocalDate.now().plusDays(license.getType().getDefaultDurationDay()));
@@ -140,15 +142,15 @@ public class LicenseService {
                 .orElseThrow(() -> new UsernameNotFoundException("Actor not found: " + currentUser.getUsername()));
         Device device = deviceService.getDevice(request.getMacAddress());
         if (device == null) {
-            throw new LicenseServiceException("Device not found", 404);
+            throw new ResponseStatusException(HttpStatus.valueOf(404), "Device not found");
         }
         Product product = productService.getProduct(request.getProductName());
         if (product == null) {
-            throw new LicenseServiceException("Product not found: " + request.getProductName(), 404);
+            throw new ResponseStatusException(HttpStatus.valueOf(404), "Product not found: " + request.getProductName());
         }
         License license = licenseRepository.findActiveByDeviceUserAndProduct(device, actor, product);
         if (license == null) {
-            throw new LicenseServiceException("License not found", 404);
+            throw new ResponseStatusException(HttpStatus.valueOf(404), "License not found");
         }
         return buildTicket(license, request.getMacAddress());
     }

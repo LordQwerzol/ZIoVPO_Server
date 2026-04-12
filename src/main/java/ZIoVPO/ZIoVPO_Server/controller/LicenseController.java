@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,12 +32,8 @@ public class LicenseController {
         try {
             String licenseCode = service.createLicense(request, currentUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(licenseCode);
-        } catch (LicenseServiceException e) {
-            HttpStatus status = HttpStatus.resolve(e.getCode());
-            if (status == null) {
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-            return ResponseEntity.status(status).body(e.getMessage());
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error: " + e.getMessage());
         }
@@ -50,12 +47,8 @@ public class LicenseController {
             Ticket ticket = service.activateLicense(request, currentUser);
             String signature = signingService.sign(ticket);
             return ResponseEntity.status(HttpStatus.OK).body(TicketResponse.builder().ticket(ticket).signature(signature).build());
-        } catch (LicenseServiceException e) {
-            HttpStatus status = HttpStatus.resolve(e.getCode());
-            if (status == null) {
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-            return ResponseEntity.status(status).body(e.getMessage());
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
@@ -69,12 +62,8 @@ public class LicenseController {
             Ticket ticket = service.renewLicense(request, currentUser);
             String signature = signingService.sign(ticket);
             return ResponseEntity.status(HttpStatus.OK).body(TicketResponse.builder().ticket(ticket).signature(signature).build());
-        } catch (LicenseServiceException e) {
-            HttpStatus status = HttpStatus.resolve(e.getCode());
-            if (status == null) {
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-            return ResponseEntity.status(status).body(e.getMessage());
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
@@ -88,12 +77,8 @@ public class LicenseController {
             Ticket ticket = service.checkLicense(request, currentUser);
             String signature = signingService.sign(ticket);
             return ResponseEntity.status(HttpStatus.OK).body(TicketResponse.builder().ticket(ticket).signature(signature).build());
-        } catch (LicenseServiceException e) {
-            HttpStatus status = HttpStatus.resolve(e.getCode());
-            if (status == null) {
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-            return ResponseEntity.status(status).body(e.getMessage());
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
