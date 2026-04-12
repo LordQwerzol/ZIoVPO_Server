@@ -1,7 +1,7 @@
 package ZIoVPO.ZIoVPO_Server.service;
 
 import ZIoVPO.ZIoVPO_Server.entity.ApplicationUser;
-import ZIoVPO.ZIoVPO_Server.model.ApplicationUserDto;
+import ZIoVPO.ZIoVPO_Server.model.requests.ApplicationUserRequest;
 import ZIoVPO.ZIoVPO_Server.model.enums.ApplicationUserRole;
 import ZIoVPO.ZIoVPO_Server.repository.ApplicationUserRepository;
 import jakarta.transaction.Transactional;
@@ -17,7 +17,7 @@ public class RegistrationService {
     private final ApplicationUserRepository userRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
-    public ApplicationUser registerUser(ApplicationUserDto request) {
+    public ApplicationUser registerUser(ApplicationUserRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this email already exists");
         }

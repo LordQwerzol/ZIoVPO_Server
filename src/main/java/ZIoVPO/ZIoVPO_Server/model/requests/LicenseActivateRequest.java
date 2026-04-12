@@ -1,4 +1,4 @@
-package ZIoVPO.ZIoVPO_Server.model;
+package ZIoVPO.ZIoVPO_Server.model.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

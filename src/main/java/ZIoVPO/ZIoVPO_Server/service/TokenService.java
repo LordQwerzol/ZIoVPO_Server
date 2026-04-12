@@ -3,7 +3,7 @@ package ZIoVPO.ZIoVPO_Server.service;
 import ZIoVPO.ZIoVPO_Server.configuration.JwtTokenProvider;
 import ZIoVPO.ZIoVPO_Server.entity.ApplicationUser;
 import ZIoVPO.ZIoVPO_Server.entity.UserSession;
-import ZIoVPO.ZIoVPO_Server.model.AuthenticationResponse;
+import ZIoVPO.ZIoVPO_Server.model.responses.AuthenticationResponse;
 import ZIoVPO.ZIoVPO_Server.model.enums.SessionStatus;
 import ZIoVPO.ZIoVPO_Server.repository.ApplicationUserRepository;
 import ZIoVPO.ZIoVPO_Server.repository.UserSessionRepository;

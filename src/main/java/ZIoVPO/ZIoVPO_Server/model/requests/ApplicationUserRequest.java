@@ -1,4 +1,4 @@
-package ZIoVPO.ZIoVPO_Server.model;
+package ZIoVPO.ZIoVPO_Server.model.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplicationUserDto {
+public class ApplicationUserRequest {
 
     @NotBlank()
     private String name;

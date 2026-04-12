@@ -1,10 +1,9 @@
 package ZIoVPO.ZIoVPO_Server.controller;
 
 import ZIoVPO.ZIoVPO_Server.entity.ApplicationUser;
-import ZIoVPO.ZIoVPO_Server.model.ApplicationUserDto;
-import ZIoVPO.ZIoVPO_Server.model.AuthenticationRequest;
-import ZIoVPO.ZIoVPO_Server.model.AuthenticationResponse;
-import ZIoVPO.ZIoVPO_Server.repository.ApplicationUserRepository;
+import ZIoVPO.ZIoVPO_Server.model.requests.ApplicationUserRequest;
+import ZIoVPO.ZIoVPO_Server.model.requests.AuthenticationRequest;
+import ZIoVPO.ZIoVPO_Server.model.responses.AuthenticationResponse;
 import ZIoVPO.ZIoVPO_Server.service.RegistrationService;
 import ZIoVPO.ZIoVPO_Server.service.TokenService;
 import jakarta.validation.Valid;
@@ -65,7 +64,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody ApplicationUserDto request) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody ApplicationUserRequest request) {
         try {
             ApplicationUser user = registrationService.registerUser(request);
 

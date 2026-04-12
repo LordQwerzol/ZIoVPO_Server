@@ -1,20 +1,19 @@
-package ZIoVPO.ZIoVPO_Server.model;
+package ZIoVPO.ZIoVPO_Server.model.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class LicenseCheckRequest {
+public class AuthenticationRequest {
 
     @NotBlank()
-    private String productName;
+    private String email;
+
+    @NotBlank()
+    private String password;
 
     @NotBlank()
     @Pattern(regexp = "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")

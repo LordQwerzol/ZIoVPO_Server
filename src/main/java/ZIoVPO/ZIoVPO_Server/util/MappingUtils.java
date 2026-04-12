@@ -3,8 +3,12 @@ package ZIoVPO.ZIoVPO_Server.util;
 import ZIoVPO.ZIoVPO_Server.entity.MalwareSignature;
 import ZIoVPO.ZIoVPO_Server.entity.MalwareSignatureAudit;
 import ZIoVPO.ZIoVPO_Server.entity.MalwareSignatureHistory;
-import ZIoVPO.ZIoVPO_Server.model.*;
 import ZIoVPO.ZIoVPO_Server.model.enums.SignatureStatus;
+import ZIoVPO.ZIoVPO_Server.model.records.SignedMalwareData;
+import ZIoVPO.ZIoVPO_Server.model.requests.MalwareSignatureRequest;
+import ZIoVPO.ZIoVPO_Server.model.responses.MalwareSignatureAuditResponse;
+import ZIoVPO.ZIoVPO_Server.model.responses.MalwareSignatureHistoryResponse;
+import ZIoVPO.ZIoVPO_Server.model.responses.MalwareSignatureResponse;
 import org.springframework.stereotype.Component;
 
 @Component

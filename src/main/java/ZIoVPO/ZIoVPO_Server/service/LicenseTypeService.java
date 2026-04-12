@@ -1,7 +1,6 @@
 package ZIoVPO.ZIoVPO_Server.service;
 
 import ZIoVPO.ZIoVPO_Server.entity.LicenseType;
-import ZIoVPO.ZIoVPO_Server.repository.LicenseRepository;
 import ZIoVPO.ZIoVPO_Server.repository.LicenseTypeRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;

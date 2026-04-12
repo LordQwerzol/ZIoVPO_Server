@@ -1,4 +1,4 @@
-package ZIoVPO.ZIoVPO_Server.model;
+package ZIoVPO.ZIoVPO_Server.model.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

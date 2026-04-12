@@ -1,6 +1,11 @@
 package ZIoVPO.ZIoVPO_Server.controller;
 
 import ZIoVPO.ZIoVPO_Server.model.*;
+import ZIoVPO.ZIoVPO_Server.model.records.Ticket;
+import ZIoVPO.ZIoVPO_Server.model.requests.LicenseActivateRequest;
+import ZIoVPO.ZIoVPO_Server.model.requests.LicenseCheckRequest;
+import ZIoVPO.ZIoVPO_Server.model.requests.LicenseCreateRequest;
+import ZIoVPO.ZIoVPO_Server.model.responses.TicketResponse;
 import ZIoVPO.ZIoVPO_Server.service.LicenseService;
 import ZIoVPO.ZIoVPO_Server.signature.SigningService;
 import lombok.RequiredArgsConstructor;

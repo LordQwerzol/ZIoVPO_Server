@@ -1,5 +1,6 @@
-package ZIoVPO.ZIoVPO_Server.model;
+package ZIoVPO.ZIoVPO_Server.model.responses;
 
+import ZIoVPO.ZIoVPO_Server.model.records.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

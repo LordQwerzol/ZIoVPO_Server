@@ -2,6 +2,10 @@ package ZIoVPO.ZIoVPO_Server.service;
 
 import ZIoVPO.ZIoVPO_Server.entity.*;
 import ZIoVPO.ZIoVPO_Server.model.*;
+import ZIoVPO.ZIoVPO_Server.model.records.Ticket;
+import ZIoVPO.ZIoVPO_Server.model.requests.LicenseActivateRequest;
+import ZIoVPO.ZIoVPO_Server.model.requests.LicenseCheckRequest;
+import ZIoVPO.ZIoVPO_Server.model.requests.LicenseCreateRequest;
 import ZIoVPO.ZIoVPO_Server.repository.ApplicationUserRepository;
 import ZIoVPO.ZIoVPO_Server.repository.DeviceLicenseRepository;
 import ZIoVPO.ZIoVPO_Server.repository.LicenseRepository;
