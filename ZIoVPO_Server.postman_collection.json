@@ -1,0 +1,1402 @@
+{
+  "info": {
+    "_postman_id": "95d9b0de-31e9-4c45-b4f3-714a14312eb1",
+    "name": "ZIoVPO_Server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49189585",
+    "_collection_link": "https://go.postman.co/collection/49189585-95d9b0de-31e9-4c45-b4f3-714a14312eb1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Тесты Л1",
+      "item": [
+        {
+          "name": "loginAlex",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"acsses_token\", responseData.accessToken);\r",
+                  "    pm.collectionVariables.set(\"refresh_token\", responseData.refreshToken);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"alex@example.com\",\r\n  \"password\": \"Aa1@Aa1@\",\r\n  \"macAddress\": \"77:88:99:AA:BB:CC\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/login",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "loginUser",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"acsses_token\", responseData.accessToken);\r",
+                  "    pm.collectionVariables.set(\"refresh_token\", responseData.refreshToken);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"myUser\",\r\n  \"macAddress\": \"77:88:99:AA:BB:C5\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/login",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "LoginAdmin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"acsses_token\", responseData.accessToken);\r",
+                  "    pm.collectionVariables.set(\"refresh_token\", responseData.refreshToken);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"bks2301\",\r\n  \"macAddress\": \"00:11:22:33:44:55\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/login",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Alex\",\r\n  \"email\": \"alex@example.com\",\r\n  \"password\": \"Aa1@Aa1@\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/register",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "RefreshToken",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"acsses_token\", responseData.accessToken);\r",
+                  "    pm.collectionVariables.set(\"refresh_token\", responseData.refreshToken);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"refreshToken\": \"{{refresh_token}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/auth/refresh",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Тесты Л2",
+      "item": [
+        {
+          "name": "Тест Создания",
+          "item": [
+            {
+              "name": "Test with User",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"ownerEmail\": \"user@example.com\",\r\n  \"licenseType\": \"TRIAL\",\r\n  \"product\": \"Antivirus Pro\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/create",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Test with Admin",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"ownerEmail\": \"user@example.com\",\r\n  \"licenseType\": \"TRIAL\",\r\n  \"product\": \"Antivirus Pro\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/create",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Error with Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"ownerEmail\": \"user@example.com\",\r\n  \"licenseType\": \"TRIAL\",\r\n  \"product\": \"Antivirus Pro - 1\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/create",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Error with Product Copy",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"ownerEmail\": \"user@example.com\",\r\n  \"licenseType\": \"TRIAL\",\r\n  \"product\": \"Firewall\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/create",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Error with Type",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"ownerEmail\": \"user@example.com\",\r\n  \"licenseType\": \"TRIAL-1\",\r\n  \"product\": \"Antivirus Pro\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/create",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Error with Owner",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"ownerEmail\": \"alex-1@example.com\",\r\n  \"licenseType\": \"TRIAL\",\r\n  \"product\": \"Antivirus Pro\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/create",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Тест Активации",
+          "item": [
+            {
+              "name": "Correct Data (new MAC)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"activateCod\": \"bnyT3-QAAD0-XQzYu-Evh1r\",\r\n  \"macAddress\": \"00:11:22:33:44:66\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/activate",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "activate"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Err Limit",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"activateCod\": \"Y2ITr-2KrZA-SPZm8-VCeX2\",\r\n  \"macAddress\": \"AA:11:22:33:44:53\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/activate",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "activate"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Correct Data (old MAC)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"activateCod\": \"NbxFL-36fGl-kNBVv-SbLlL\",\r\n  \"macAddress\": \"AA:BB:CC:DD:EE:F3\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/activate",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "activate"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Err Code",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"activateCod\": \"Y2ITr-2KrZA-SPZm8-VCeX2\",\r\n  \"macAddress\": \"AA:11:22:33:44:53\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/activate",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "activate"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Тест Продления",
+          "item": [
+            {
+              "name": "Correct Data",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"activateCod\": \"vEONV-x1ZcB-2DBR1-7e4L0\",\r\n  \"macAddress\": \"AA:11:22:33:44:52\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/renew",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "renew"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Тест Проверки",
+          "item": [
+            {
+              "name": "Correct Data",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"productName\": \"Antivirus Pro\",\r\n  \"macAddress\": \"AA:BB:CC:DD:EE:F2\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/check",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "check"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Err Mac No Device",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"productName\": \"Antivirus Pro\",\r\n  \"macAddress\": \"AA:BB:CC:DD:EE:43\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/check",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "check"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Err Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"productName\": \"Antivirus Pro 1\",\r\n  \"macAddress\": \"AA:BB:CC:DD:EE:F2\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/check",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "check"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Err User",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{acsses_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"productName\": \"Antivirus Pro\",\r\n  \"macAddress\": \"AA:BB:CC:DD:EE:F2\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseURL}}/license/check",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "license",
+                    "check"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Тесты Л3",
+      "item": [
+        {
+          "name": "sing test",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n  \"licenseType\": \"TRIAL\",\r\n\r\n\r\n  \"product\": \"Antivirus Pro\",\r\n\r\n\r\n  \"ownerEmail\": \"user@example.com\"\r\n\r\n\r\n  \r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/sign",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "sign"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "very",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"payload\": {\r\n  \"licenseType\": \"TRIAL\",\r\n\r\n  \r\n\r\n\r\n\r\n  \"ownerEmail\": \"user@example.com\",\r\n\r\n    \"product\": \"Antivirus Pro\"\r\n\r\n},\r\n\"signature\": \"mjlBjKdWCDrja9tq6L3esO5l48m2+UP4qzCSMDuEm0yrymEM9JP0Hd+ScobD7FYrNa+lfwW9REahwlq+pvJAuKGwssX4b4CHjof/9h87t9O+2xbDX1DBXv8WZhpHGEEuG4Mi5hX2q4dWLP9p1LYWXhZuMjfbODqm0yg/ovnOKLmrFGyEzcH4RdbiozMPbyXFeKoMn59KrCcP47fzl16eaqT69rm+GNFnbPTOTT5yeJ8SfnuG+Vdv2e9MRkHWHH3AK1kXOeB7/UCAZD3rj0a+qvNSHDGemonujmID1v0ARdqnkvXDx7IyAN808cII4B7gfPbhyPa/PAireXX64U/ibg==\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/verify",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Проверка подписи Сигнатуры",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"payload\": {\r\n    \"threatName\": \"Trojan.Win32.Emotet-2\",\r\n    \"firstBytesHex\": \"4D5A90000300000004000000FFFF0000B800000000000000\",\r\n    \"remainderHashHex\": \"A1B2C3D4E5F678901\",\r\n    \"remainderLength\": 17,\r\n    \"fileType\": \"application/x-dosexec\",\r\n    \"offsetStart\": 0,\r\n    \"offsetEnd\": 1024,\r\n    \"status\": \"ACTUAL\"\r\n},\r\n\"signature\": \"mxSfIyWOdY68XepW4t86lop7VJyBwHBeX/Rky98oJgrsjMSpES4lwv/c6S/UZp4sYe9dNggPNbW18oSbcKiKxMgQGj5MZjO8QLJb70IXkEZ2BhEOKK3U88pWD+bqkQk/yliX4a0CGAbnvUPbIkPY+gMgEcF81BcXOePngDbELI4JpELSqIYzbMjepiw09dyLSAbJ9LfoF5rFNZuWobsTRUiHaBkTpMn07uzoahooIByfobJ0uEbkPcGjPY6PMP12RjNTafjzp/J8OsYFYM5TmR09OAHnsHdPsyteGt+Gi55kx7PwHnLr8JDPdhL+SlpB3H9HJ+jRG+bPxXIgqf4lUw==\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/verify",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Тесты Л4",
+      "item": [
+        {
+          "name": "Получение актуальной базы",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/signature/getAll",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение инкримента",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/signature/getIncrement/2026-04-03T10:08:03.238890Z",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "getIncrement",
+                "2026-04-03T10:08:03.238890Z"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение по IDs",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n  \"8d0bc68d-5a01-44ef-94e9-28db3de6b801\",\r\n  \"1bafb845-5643-47e9-a9fc-f766ede1dd42\",\r\n  \"7923b857-3da2-4fe3-99aa-bd98902427f0\"\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/signature/getId",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "getId"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Создание сигнатуры",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"threatName\": \"Сигнатура для демострации истории\",\r\n  \"firstBytesHex\": \"4D5A90000300000004000000FFFF0000B800000000000000\",\r\n  \"remainderHashHex\": \"A1B2C3D4E5F67890\",\r\n  \"remainderLength\": 16,\r\n  \"fileType\": \"application/x-dosexec\",\r\n  \"offsetStart\": 10,\r\n  \"offsetEnd\": 12\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/signature/create",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Удаление сигнатуры",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/signature/delete/79ec775f-1032-4952-bbea-8789c64b11ec",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "delete",
+                "79ec775f-1032-4952-bbea-8789c64b11ec"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Изменение сигнатуры",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"threatName\": \"Изменение ее свойств-3\",\r\n  \"offsetEnd\": 15\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/signature/update/79ec775f-1032-4952-bbea-8789c64b11ec",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "update",
+                "79ec775f-1032-4952-bbea-8789c64b11ec"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение истории сигнатуры",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/signature/getHistory/79ec775f-1032-4952-bbea-8789c64b11ec",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "getHistory",
+                "79ec775f-1032-4952-bbea-8789c64b11ec"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение аудита сигнатуры",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/signature/getAudit/79ec775f-1032-4952-bbea-8789c64b11ec",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "getAudit",
+                "79ec775f-1032-4952-bbea-8789c64b11ec"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Тесты Л5",
+      "item": [
+        {
+          "name": "Получение актуальной базы БАЙТЫ",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/signature/binary/getAll",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "binary",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение инкримента БАЙТЫ",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/signature/binary/getIncrement/2026-04-03T10:08:03.238890Z",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "binary",
+                "getIncrement",
+                "2026-04-03T10:08:03.238890Z"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение по IDs БАЙТЫ",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n  \"8d0bc68d-5a01-44ef-94e9-28db3de6b801\",\r\n  \"1bafb845-5643-47e9-a9fc-f766ede1dd42\",\r\n  \"7923b857-3da2-4fe3-99aa-bd98902427f0\"\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/signature/binary/getId",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "binary",
+                "getId"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Тесты Л6",
+      "item": [
+        {
+          "name": "Создание + файл",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{acsses_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "file",
+              "file": {
+                "src": "/C:/Users/Alex/Desktop/Скачать в mp4.bat"
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/signature/files/upload",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "files",
+                "upload"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получение по IDs",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n  \"654427fa-0b8d-4faf-8011-d6bd6472a42f\",\r\n  \"70a652cf-8fd5-492d-83c1-fa61bb41886a\",\r\n  \"7923b857-3da2-4fe3-99aa-bd98902427f0\"\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseURL}}/signature/files/getUrls",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "signature",
+                "files",
+                "getUrls"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": ""
+    },
+    {
+      "key": "acsses_token",
+      "value": ""
+    },
+    {
+      "key": "refresh_token",
+      "value": ""
+    }
+  ]
+}
