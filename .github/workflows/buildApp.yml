@@ -1,0 +1,169 @@
+name: CI/CD Pipeline for ZIoVPO Server
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [ opened, synchronize, reopened ]
+  push:
+    branches: [ master ]
+
+env:
+  # PostgreSQL
+  DB_USER: ${{ secrets.DB_USER }}
+  DB_PASS: ${{ secrets.DB_PASS }}
+  # JWT
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  # TLS Keystore (MYTASKMAN.jks)
+  KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+  KEY_STORE_PASS: ${{ secrets.KEY_STORE_PASS }}
+  # ЭЦП Keystore (SIGNING.jks)
+  SIGNING_KEYSTORE_BASE64: ${{ secrets.SIGNING_KEYSTORE_BASE64 }}
+  SIGNATURE_KEYSTORE_PASSWORD: ${{ secrets.SIGNATURE_KEYSTORE_PASSWORD }}
+  SIGNATURE_KEY_PASSWORD: ${{ secrets.SIGNATURE_KEY_PASSWORD }}
+  # MinIO
+  MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+  MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+
+jobs:
+  test:
+    name: MVN Test
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9-eclipse-temurin-21
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: ziovpo_test
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      minio:
+        image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+        env:
+          MINIO_ROOT_USER: ${{ secrets.MINIO_ACCESS_KEY }}
+          MINIO_ROOT_PASSWORD: ${{ secrets.MINIO_SECRET_KEY }}
+        command: server /data --console-address ":9001"
+        options: >-
+          --health-cmd "curl -f http://localhost:9000/minio/health/ready"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 9000:9000
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Декодируем TLS keystore (MYTASKMAN.jks)
+      - name: Decode TLS keystore
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > src/main/resources/MYTASKMAN.jks
+
+      # Декодируем keystore для ЭЦП (SIGNING.jks)
+      - name: Decode signing keystore
+        run: echo "$SIGNING_KEYSTORE_BASE64" | base64 --decode > src/main/resources/SIGNING.jks
+
+      # Устанавливаем PostgreSQL client (для проверки готовности БД)
+      - name: Install PostgreSQL client
+        run: apt-get update && apt-get install -y postgresql-client
+
+      # Ждём PostgreSQL
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..30}; do
+            pg_isready -h postgres -U $DB_USER -d ziovpo_test && break || sleep 2
+          done
+
+      # Ждём MinIO
+      - name: Wait for MinIO
+        run: |
+          for i in {1..20}; do
+            curl -s http://localhost:9000/minio/health/ready && break || sleep 2
+          done
+
+      # Генерируем полный application.properties (все переменные подставляются из env)
+      - name: Generate application.properties
+        run: |
+          cat > src/main/resources/application.properties << EOF
+          spring.application.name=ZIoVPO_Server
+          spring.output.ansi.enabled=always
+          server.port=8080
+
+          # logging
+          logging.level.org.springframework.security=DEBUG
+          logging.level.org.springframework.web=DEBUG
+
+          # postgresql
+          spring.datasource.url=jdbc:postgresql://postgres:5432/ziovpo_test
+          spring.datasource.username=${DB_USER}
+          spring.datasource.password=${DB_PASS}
+          spring.jpa.hibernate.ddl-auto=update
+          spring.jpa.show-sql=true
+          spring.jpa.properties.hibernate.format_sql=true
+          spring.sql.init.mode=always
+          spring.jpa.defer-datasource-initialization=true
+          spring.sql.init.platform=postgresql
+
+          # JWT
+          jwt.secret=${JWT_SECRET}
+          jwt.accessExpiration=3600000
+          jwt.refreshExpiration=86400000
+
+          # TLS
+          server.ssl.enabled=true
+          server.ssl.key-store=classpath:MYTASKMAN.jks
+          server.ssl.key-store-password=${KEY_STORE_PASS}
+          server.ssl.key-alias=MYTASKMAN
+
+          # Ticket
+          ticket.expiration=86400
+
+          # Digital-signature
+          signature.key-store-path=classpath:SIGNING.jks
+          signature.key-store-password=${SIGNATURE_KEYSTORE_PASSWORD}
+          signature.key-alias=app-digital-signature
+          signature.key-password=${SIGNATURE_KEY_PASSWORD}
+          signature.algorithm=SHA256withRSA
+
+          # MinIO
+          minio.endpoint=http://localhost:9000
+          minio.access-key=${MINIO_ACCESS_KEY}
+          minio.secret-key=${MINIO_SECRET_KEY}
+          minio.bucket-name=signatures-bucket
+          EOF
+
+      # Запускаем тесты (переменные окружения уже подставятся в файл свойств)
+      - name: Run Maven tests
+        run: mvn clean test
+
+  build:
+    name: Build JAR
+    needs: test
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9-eclipse-temurin-21
+    steps:
+      - uses: actions/checkout@v4
+
+      # Декодируем оба keystore (для сборки артефакта)
+      - name: Decode TLS keystore
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > src/main/resources/MYTASKMAN.jks
+
+      - name: Decode signing keystore
+        run: echo "$SIGNING_KEYSTORE_BASE64" | base64 --decode > src/main/resources/SIGNING.jks
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziovpo-server
+          path: target/*.jar
+          retention-days: 14
